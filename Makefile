@@ -54,7 +54,7 @@ OUT_IMAGE_TAG = $(OUT_IMAGE_VERSION)-$(OUT_DIST)
 OUT_IMAGE = $(OUT_IMAGE_NAME):$(OUT_IMAGE_TAG)
 
 ##### Public rules #####
-DISTRIBUTIONS := ubuntu22.04 ubuntu24.04 signed_ubuntu22.04 signed_ubuntu24.04 rhel8 rhel9 rhel10 rocky8 rocky9 rocky10 precompiled_rhcos
+DISTRIBUTIONS := ubuntu22.04 ubuntu24.04 signed_ubuntu22.04 signed_ubuntu24.04 rhel8 rhel9 rhel10 rocky8 rocky9 rocky10 almalinux9 precompiled_rhcos
 RHCOS_VERSIONS := rhcos4.14 rhcos4.15 rhcos4.16 rhcos4.17 rhcos4.18 rhel9.6
 PUSH_TARGETS := $(patsubst %, push-%, $(DISTRIBUTIONS))
 BASE_FROM := noble jammy
@@ -173,6 +173,9 @@ build-rocky8%: DOCKER_BUILD_ARGS = --build-arg BASE_IMAGE=nvcr.io/nvidia/cuda:13
 
 build-rocky9%: SUBDIR = rhel9
 build-rocky9%: DOCKER_BUILD_ARGS = --build-arg BASE_IMAGE=nvcr.io/nvidia/cuda:13.2.1-base-rockylinux9
+
+build-almalinux9%: SUBDIR = almalinux9
+build-almalinux9%: DOCKER_BUILD_ARGS = --build-arg BASE_IMAGE=almalinux:9.0
 
 build-rocky10%: SUBDIR = rhel10
 build-rocky10%: DOCKER_BUILD_ARGS = --build-arg BASE_IMAGE=nvcr.io/nvidia/cuda:13.2.0-base-rockylinux10
